@@ -5,6 +5,11 @@ extends Node2D
 func _ready():
 	pass
 
-func _input(event):
-	if event.is_action_pressed("exit"):
-		get_tree().change_scene_to_file("res://main_menu.tscn")
+func _on_door_player_entered(body):
+	if body == $Player:
+		get_tree().change_scene_to_file("res://game_over.tscn")
+
+
+func _on_spikes_body_entered(body):
+	if body == $Player:
+		get_tree().change_scene_to_file("res://game_over.tscn")

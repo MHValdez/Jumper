@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyq6txh74ih8"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_lrm5v"]
+
+[node name="game_over" type="Node2D"]
+script = ExtResource("1_lrm5v")
+
+[node name="StatusLabel" type="Label" parent="."]
+offset_left = 81.0
+offset_top = 247.0
+offset_right = 408.0
+offset_bottom = 286.0
+theme_type_variation = &"HeaderLarge"
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="IntructionLabel" type="Label" parent="."]
+offset_left = 150.0
+offset_top = 291.0
+offset_right = 355.0
+offset_bottom = 340.0
+text = "Press [Space] to play again
+Hold [Space] to quit"
+metadata/_edit_use_anchors_ = true
