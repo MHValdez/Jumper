@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const FRICTION = 0.02
-const DASH_VELOCITY = 3000.0
+const DASH_VELOCITY = 800.0
 const JUMP_VELOCITY = -500.0
 const DOUBLE_JUMP_VELOCITY = -500.0
 const GRIP_TIME = 0.2
@@ -33,18 +33,19 @@ func _physics_process(delta):
 		$AnimatedSprite2D.play("idle")
 	
 	if is_on_wall():
+		velocity.x = 0
 		direction = get_wall_normal()[0]
 		$AnimatedSprite2D.set_rotation(direction * PI/2.0)
 		
 		# Can jump or dash
-		if jumping:
+		if dashing or jumping:
 			# Just landed
 			grip.start()
 			charge.paused = false
 		
-		jumping = false
-		dashing = false
-		has_double_jump = true
+			jumping = false
+			dashing = false
+			has_double_jump = true
 		
 		if grip.get_time_left() > 0:
 			# Grip wall after landing
