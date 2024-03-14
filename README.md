@@ -16,5 +16,11 @@
 
 # Credits
 - Made by Marcos Valdez for [MLH GHW](https://ghw.mlh.io) March 2024: Games
-  - Used assets from [1-Bit Platformer Pack](https://kenney.nl/assets/1-bit-platformer-pack) by [Kenny](https://kenney.nl)
+  - Sprites: [1-Bit Platformer Pack](https://kenney.nl/assets/1-bit-platformer-pack) by [Kenny](https://kenney.nl)
+  - Sound Effects: [jsfxr](https://sfxr.me)
+  - Music:
+    - Menu: [Prepare for War](https://opengameart.org/content/prepare-for-war) by [Trevor Lentz](https://opengameart.org/users/trevor-lentz)
+    - Game: [Spooky Dungeon](https://opengameart.org/content/spooky-dungeon) by [You're Perfect Studio](https://opengameart.org/users/youre-perfect-studio)
+    - Defeat: [This Game is Over](https://opengameart.org/content/this-game-is-over) by [mccartneytm](https://opengameart.org/users/mccartneytm)
+    - Win: [Victory](https://opengameart.org/content/victory) by [celestialghost8](https://opengameart.org/users/celestialghost8)
   - Referenced [Complete 2D Platformer in Godot 4 Tutorial](https://www.youtube.com/watch?v=FNEAJsry5sA) by [Brett Makes Games](https://www.youtube.com/@brettmakesgames)
