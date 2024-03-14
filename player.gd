@@ -17,6 +17,51 @@ var direction = 0
 var charge = Timer.new()
 var grip = Timer.new()
 
+func _handle_landing():
+	charge.paused = false
+	$LandSfx.play()
+	jumping = false
+	dashing = false
+	has_double_jump = true
+
+func _jump_init():
+	velocity.x = direction * SPEED
+	velocity.y = JUMP_VELOCITY
+	jumping = true
+	$JumpSfx.play()
+
+func _dash_init():
+	velocity.x = direction * DASH_VELOCITY
+	dashing = true
+	$DashSfx.play()
+
+func _double_jump_init():
+	has_double_jump = false
+	velocity.x = direction * SPEED
+	velocity.y = DOUBLE_JUMP_VELOCITY
+	$DoubleJumpSfx.play()
+
+func _handle_wall_input():
+	if Input.is_action_just_pressed("jump"):
+		# Begin dash charge
+		charge.start()
+	
+	if Input.is_action_pressed("jump"):
+		$AnimatedSprite2D.play("charge")
+	
+	if Input.is_action_just_released("jump"):
+		# Jump away from wall
+		charge.paused = true
+
+		if charge.get_time_left() > 0.0:
+			_jump_init()
+		else:
+			_dash_init()
+
+func _handle_air_input():
+		if Input.is_action_just_pressed("jump"):
+			if not dashing and has_double_jump:
+				_double_jump_init()
 
 func _physics_process(delta):
 	# Timers for dash charge and wall grip
@@ -32,37 +77,31 @@ func _physics_process(delta):
 		$AnimatedSprite2D.set_rotation(0)
 		$AnimatedSprite2D.play("idle")
 		if dashing or jumping:
-			# Just landed
-			charge.paused = false
-			$LandSfx.play()
-			jumping = false
-			dashing = false
-			has_double_jump = true
-	
-	if is_on_wall():
+			_handle_landing()
+	elif is_on_wall():
 		velocity.x = 0
 		direction = get_wall_normal()[0]
+		# set_rotation uses radians
 		$AnimatedSprite2D.set_rotation(direction * PI/2.0)
 		
 		# Can jump or dash
 		if dashing or jumping:
 			# Just landed
 			grip.start()
-			charge.paused = false
-			$LandSfx.play()
-			jumping = false
-			dashing = false
-			has_double_jump = true
+			_handle_landing()
 		
 		if grip.get_time_left() > 0:
 			# Grip wall after landing
 			velocity.y = 0
 			$AnimatedSprite2D.play("jump")
 		else:
-			# Slide dpwn at constant speed
+			# Slide down at constant speed
 			velocity.y = gravity * FRICTION
 			$AnimatedSprite2D.play("idle")
+		
+		_handle_wall_input()
 	else:
+		# In air
 		if dashing:
 			# Continue dash
 			velocity.x = direction * DASH_VELOCITY
@@ -70,42 +109,8 @@ func _physics_process(delta):
 			# Continue jump
 			velocity.x = direction * SPEED
 			velocity.y += gravity * delta
-	
-	if is_on_wall():
-		direction = get_wall_normal()[0]
-		$AnimatedSprite2D.set_rotation(direction * PI/2.0)
 		
-		if Input.is_action_just_pressed("jump"):
-			# Begin dash charge
-			charge.start()
-		
-		if Input.is_action_pressed("jump"):
-			$AnimatedSprite2D.play("charge")
-		
-		if Input.is_action_just_released("jump"):
-			# Jump away from wall
-			charge.paused = true
-	
-			if charge.get_time_left() > 0.0:
-				# Initiate regular jump away from wall
-				velocity.x = direction * SPEED
-				velocity.y = JUMP_VELOCITY
-				jumping = true
-				$JumpSfx.play()
-			else:
-				# Initate dash away from wall
-				velocity.x = direction * DASH_VELOCITY
-				dashing = true
-				$DashSfx.play()
-	else:
-		if Input.is_action_just_pressed("jump"):
-			if not dashing and has_double_jump:
-				# Peform single double jump per regular jump
-				has_double_jump = false
-				velocity.x = direction * SPEED
-				velocity.y = DOUBLE_JUMP_VELOCITY
-				$DoubleJumpSfx.play()
-		
+		_handle_air_input()
 		$AnimatedSprite2D.play("jump")
 
 	move_and_slide()
