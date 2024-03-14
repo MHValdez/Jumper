@@ -31,6 +31,13 @@ func _physics_process(delta):
 	if is_on_floor():
 		$AnimatedSprite2D.set_rotation(0)
 		$AnimatedSprite2D.play("idle")
+		if dashing or jumping:
+			# Just landed
+			charge.paused = false
+			$LandSfx.play()
+			jumping = false
+			dashing = false
+			has_double_jump = true
 	
 	if is_on_wall():
 		velocity.x = 0
@@ -42,7 +49,7 @@ func _physics_process(delta):
 			# Just landed
 			grip.start()
 			charge.paused = false
-		
+			$LandSfx.play()
 			jumping = false
 			dashing = false
 			has_double_jump = true
@@ -84,10 +91,12 @@ func _physics_process(delta):
 				velocity.x = direction * SPEED
 				velocity.y = JUMP_VELOCITY
 				jumping = true
+				$JumpSfx.play()
 			else:
 				# Initate dash away from wall
 				velocity.x = direction * DASH_VELOCITY
-				dashing = true      
+				dashing = true
+				$DashSfx.play()
 	else:
 		if Input.is_action_just_pressed("jump"):
 			if not dashing and has_double_jump:
@@ -95,6 +104,7 @@ func _physics_process(delta):
 				has_double_jump = false
 				velocity.x = direction * SPEED
 				velocity.y = DOUBLE_JUMP_VELOCITY
+				$DoubleJumpSfx.play()
 		
 		$AnimatedSprite2D.play("jump")
 
