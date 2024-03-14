@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://cv0o5eq1egvj"]
+[gd_scene load_steps=21 format=3 uid="uid://cv0o5eq1egvj"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_rlq2e"]
 [ext_resource type="Texture2D" uid="uid://ca2fiwludg16r" path="res://monochrome_tilemap_transparent.png" id="2_s7yud"]
 [ext_resource type="PackedScene" uid="uid://dt6bo6qirwvr2" path="res://player.tscn" id="3_3cjr0"]
+[ext_resource type="AudioStream" uid="uid://dfnwnmvgb0m0i" path="res://music/Memoraphile - Spooky Dungeon.ogg" id="4_86db7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h3b4i"]
 resource_name = "Tilemap"
@@ -2369,6 +2370,10 @@ debug_color = Color(0.952941, 0, 0.564706, 0.419608)
 position = Vector2(291.5, 691)
 shape = SubResource("RectangleShape2D_rxod5")
 debug_color = Color(0.952941, 0, 0.564706, 0.419608)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_86db7")
+autoplay = true
 
 [connection signal="body_entered" from="Door" to="." method="_on_door_player_entered"]
 [connection signal="body_entered" from="Spikes" to="." method="_on_spikes_body_entered"]

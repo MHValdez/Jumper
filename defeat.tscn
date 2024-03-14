@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyq6txh74ih8"]
+
+[ext_resource type="Script" path="res://win.gd" id="1_b47c5"]
+[ext_resource type="AudioStream" uid="uid://d02d8gl63w7ka" path="res://sounds/damage.wav" id="2_eq01t"]
+[ext_resource type="AudioStream" uid="uid://dlodgj8xyaibw" path="res://music/ThisGameIsOver.wav" id="3_kfy18"]
+
+[node name="Defeat" type="Node2D"]
+script = ExtResource("1_b47c5")
+
+[node name="StatusLabel" type="Label" parent="."]
+offset_left = 81.0
+offset_top = 247.0
+offset_right = 408.0
+offset_bottom = 286.0
+theme_type_variation = &"HeaderLarge"
+text = "Defeat!"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="IntructionLabel" type="Label" parent="."]
+offset_left = 150.0
+offset_top = 291.0
+offset_right = 355.0
+offset_bottom = 340.0
+text = "Press [Space] to play again
+Hold [Space] to quit"
+metadata/_edit_use_anchors_ = true
+
+[node name="Damage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_eq01t")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_kfy18")
+autoplay = true

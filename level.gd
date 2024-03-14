@@ -7,9 +7,9 @@ func _ready():
 
 func _on_door_player_entered(body):
 	if body == $Player:
-		get_tree().change_scene_to_file("res://game_over.tscn")
+		get_tree().change_scene_to_file("res://win.tscn")
 
 
 func _on_spikes_body_entered(body):
 	if body == $Player:
-		get_tree().change_scene_to_file("res://game_over.tscn")
+		get_tree().change_scene_to_file("res://defeat.tscn")
